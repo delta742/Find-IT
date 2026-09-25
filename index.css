@@ -1,0 +1,312 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f8f6;
+    color: #17231e;
+}
+
+
+/* Navigation */
+
+header {
+    background: #006b3c;
+    color: white;
+    min-height: 72px;
+    padding: 12px 6%;
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+/* Logo */
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    min-width: 210px;
+}
+
+.logo small {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    margin-top: 2px;
+    color: #ccebdd;
+}
+
+
+/* Navigation Links */
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex: 1;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav .active {
+    color: #a9e8c7;
+}
+
+
+/* Login */
+
+.login {
+    color: white;
+    text-decoration: none;
+
+    border: 1px solid white;
+    padding: 9px 18px;
+    border-radius: 6px;
+}
+
+
+/* Main */
+
+main {
+    width: 92%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* Hero Section */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 35px;
+    padding: 55px 0 40px;
+}
+
+.hero-text {
+    width: 52%;
+}
+
+
+/* Image */
+
+.hero img {
+    width: 45%;
+    max-height: 310px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+
+/* Small Heading */
+
+.tag {
+    color: #00834b;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+/* Main Heading */
+
+h1 {
+    font-size: 52px;
+    line-height: 1.15;
+    margin: 12px 0;
+}
+
+h1 span {
+    color: #00834b;
+}
+
+
+/* Description */
+
+.intro {
+    font-size: 18px;
+    color: #59645f;
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+
+/* Buttons */
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn {
+    background: #007847;
+    color: white;
+    text-decoration: none;
+
+    padding: 12px 20px;
+    border-radius: 6px;
+
+    font-weight: bold;
+}
+
+.btn.outline {
+    background: white;
+    color: #007847;
+    border: 1px solid #007847;
+}
+
+
+/* Statistics */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    background: white;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 18px #00000012;
+}
+
+.stats div {
+    text-align: center;
+    padding: 22px;
+
+    border-right: 1px solid #eee;
+}
+
+.stats div:last-child {
+    border: 0;
+}
+
+
+/* Icons */
+
+.stats span {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 6px;
+}
+
+
+/* Numbers */
+
+.stats b {
+    display: block;
+    font-size: 30px;
+    color: #007847;
+}
+
+
+/* Statistics Text */
+
+.stats p {
+    margin-top: 5px;
+    color: #66716c;
+}
+
+
+/* Process */
+
+.process {
+    text-align: center;
+
+    color: #007847;
+    font-weight: bold;
+
+    margin: 28px 0;
+
+    font-size: 18px;
+}
+
+
+/* Footer */
+
+footer {
+    text-align: center;
+
+    background: #003c24;
+    color: white;
+
+    padding: 20px;
+    margin-top: 30px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 800px) {
+
+    header {
+        flex-wrap: wrap;
+        padding: 18px 5%;
+    }
+
+    .logo {
+        width: 100%;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+
+        overflow: auto;
+        justify-content: flex-start;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text,
+    .hero img {
+        width: 100%;
+    }
+
+    .intro {
+        margin: auto;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 500px) {
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        text-align: center;
+    }
+}

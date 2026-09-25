@@ -1,0 +1,305 @@
+/* =========================
+   BASIC SETTINGS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f8f6;
+    color: #17221e;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    height: 72px;
+
+    background-color: #006b3c;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 6%;
+
+    color: white;
+
+    gap: 30px;
+}
+
+
+/* Logo */
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+
+    min-width: 210px;
+
+    white-space: nowrap;
+}
+
+.logo span {
+    margin-left: 5px;
+}
+
+
+/* Navigation */
+
+.nav-links {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 25px;
+
+    flex: 1;
+}
+
+.nav-links a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+}
+
+
+/* Active page */
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #a9e8c7;
+}
+
+
+/* Login button */
+
+.login-btn {
+    color: white;
+
+    text-decoration: none;
+
+    border: 1px solid white;
+
+    padding: 9px 18px;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   ABOUT PAGE
+========================= */
+
+.about-section {
+    text-align: center;
+
+    padding: 60px 8%;
+}
+
+
+/* Small heading */
+
+.about-small-title {
+    color: #00834b;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+}
+
+
+/* Main heading */
+
+.about-section h1 {
+    font-size: 48px;
+
+    margin-bottom: 15px;
+}
+
+
+/* Introduction */
+
+.about-intro {
+    color: #5b6863;
+
+    font-size: 19px;
+
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   ABOUT CARDS
+========================= */
+
+.about-container {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-top: 30px;
+}
+
+
+.about-card {
+    background-color: white;
+
+    width: 30%;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #e5eae7;
+}
+
+
+/* Card heading */
+
+.about-card h2 {
+    color: #00834b;
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+
+/* Card paragraph */
+
+.about-card p {
+    color: #5b6863;
+
+    line-height: 1.6;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   BOTTOM SECTION
+========================= */
+
+.about-bottom {
+    margin-top: 60px;
+
+    padding: 30px;
+
+    background-color: #e9f7ef;
+
+    border-radius: 12px;
+}
+
+.about-bottom h2 {
+    color: #00834b;
+
+    margin-bottom: 10px;
+}
+
+.about-bottom p {
+    color: #5b6863;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        height: auto;
+
+        padding: 18px 5%;
+
+        flex-wrap: wrap;
+
+        gap: 18px;
+    }
+
+    .logo {
+        min-width: auto;
+    }
+
+    .nav-links {
+        order: 3;
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        gap: 20px;
+    }
+
+    .login-btn {
+        margin-left: auto;
+    }
+
+    .about-container {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .about-card {
+        width: 90%;
+    }
+
+    .about-section h1 {
+        font-size: 38px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .about-section {
+        padding: 40px 5%;
+    }
+
+    .about-section h1 {
+        font-size: 34px;
+    }
+
+    .about-intro {
+        font-size: 16px;
+    }
+
+    .about-card {
+        width: 100%;
+    }
+}
