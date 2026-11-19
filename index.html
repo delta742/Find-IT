@@ -1,114 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>FindIT - Lost & Found</title>
-
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindIT – Campus Lost &amp; Found Management System</title>
+  <meta name="description" content="Dedicated university platform helping students report missing belongings, discover found items, and reconnect with rightful owners safely.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+<body data-page="home">
+  <div id="site-header"></div>
 
-<body>
+  <main>
+    <!-- Authenticated Banner (Only shown if user is logged in) -->
+    <div id="authBanner" class="container" style="display:none;margin-top:20px;">
+      <div class="auth-alert auth-alert-success" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>You are signed in as <strong id="authBannerUserName"></strong>. Access your personalized campus dashboard.</span>
+        </div>
+        <a class="btn btn-primary btn-sm" href="dashboard.html">Go to Dashboard &rarr;</a>
+      </div>
+    </div>
 
-    <!-- Navigation Bar -->
-    <header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> University Lost &amp; Found Network</span>
+          <h1>Lost Something on Campus?<br>Let's Help You Find It.</h1>
+          <p class="lead">FindIT is a dedicated campus lost and found platform that helps students report missing belongings, discover found items, and reconnect with their rightful owners.</p>
 
-        <div class="logo">
-            🔎 FindIT
+          <div class="hero-actions" style="margin-top:24px;">
+            <a class="btn btn-primary btn-lg" href="login.html" id="heroPrimaryBtn">Sign In to Continue &rarr;</a>
+            <a class="btn btn-outline btn-lg" href="#how-it-works">Learn How It Works</a>
+          </div>
+
+          <div class="hero-trust-chips" style="margin-top:36px;">
+            <span class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              Student ID Authentication
+            </span>
+            <span class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Protected Item Listings
+            </span>
+            <span class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Verified Handover Points
+            </span>
+          </div>
         </div>
 
-        <nav>
-            <a class="active" href="#">Dashboard</a>
-            <a href="#">All Items</a>
-            <a href="#">Report Lost</a>
-            <a href="#">Report Found</a>
-            <a href="about.html">About</a>
-        </nav>
-
-        <a class="login" href="#">Login</a>
-
-    </header>
-
-
-    <!-- Main Content -->
-    <main>
-
-        <!-- Hero Section -->
-        <section class="hero">
-
-            <div class="hero-text">
-
-                <p class="tag">COLLEGE LOST & FOUND</p>
-
-                <h1>
-                    Lost something?<br>
-                    <span>Let's find it.</span>
-                </h1>
-
-                <p class="intro">
-                    Report lost or found belongings and help your
-                    college community return them safely.
-                </p>
-
-                <div class="buttons">
-                    <a href="#" class="btn">Report Lost</a>
-                    <a href="#" class="btn outline">Report Found</a>
-                </div>
-
+        <!-- Campus Security & Privacy Portal Card (No Public Item Leakage) -->
+        <div class="hero-visual-card" aria-hidden="true">
+          <div class="hero-visual-header">
+            <div class="hero-visual-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Campus Security &amp; Privacy Shield</span>
             </div>
+            <span class="live-indicator"><span class="pulse-dot"></span> Protected</span>
+          </div>
 
-
-            <!-- Project Image -->
-            <img src="image.png" alt="Lost and found items">
-
-        </section>
-
-
-        <!-- Statistics -->
-        <section class="stats">
-
-            <div>
-                <span>📄</span>
-                <b>0</b>
-                <p>Lost Items</p>
+          <div style="background-color:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;margin-bottom:14px;">
+            <div style="font-weight:700;font-size:0.95rem;color:var(--text-main);margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              Restricted Campus Directory
             </div>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin:0;line-height:1.5;">
+              To prevent fraudulent claims and safeguard student contact details, actual lost and found item listings are accessible strictly to registered campus members.
+            </p>
+          </div>
 
-            <div>
-                <span>🔎</span>
-                <b>0</b>
-                <p>Found Items</p>
+          <div class="preview-feed-item" style="border-left: 3px solid var(--primary);">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;flex-shrink:0;">
+              ✓
             </div>
-
-            <div>
-                <span>✓</span>
-                <b>0</b>
-                <p>Items Returned</p>
+            <div class="preview-content">
+              <div class="preview-title">Student &amp; Faculty Verification</div>
+              <div class="preview-meta">Requires valid university enrollment credentials</div>
             </div>
+          </div>
 
-            <div>
-                <span>👤</span>
-                <b>0</b>
-                <p>Registered Users</p>
+          <div class="preview-feed-item" style="border-left: 3px solid var(--primary);">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;flex-shrink:0;">
+              🔒
             </div>
+            <div class="preview-content">
+              <div class="preview-title">Private Ownership Claims</div>
+              <div class="preview-meta">Secret identifiers &amp; direct reporter communication</div>
+            </div>
+          </div>
 
-        </section>
+          <div class="preview-feed-item" style="border-left: 3px solid var(--primary);">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;flex-shrink:0;">
+              📍
+            </div>
+            <div class="preview-content">
+              <div class="preview-title">Designated Campus Drop-offs</div>
+              <div class="preview-meta">Central Security Cabin (Gate 1) &amp; Library Desk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- How It Works Section -->
+    <section class="block" id="how-it-works">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> Process Overview</span>
+            <h2>How It Works</h2>
+            <p>Three straightforward steps designed to reconnect belongings with their rightful owners safely.</p>
+          </div>
+        </div>
 
-        <!-- Simple Process -->
-        <p class="process">
-            Report → Search → Recover
-        </p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Report an Item</h3>
+            <p>Sign in and submit a lost or found report with descriptive details, estimated campus location, and a photograph in under 60 seconds.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Find and Connect</h3>
+            <p>FindIT’s automated matching engine analyzes categories, locations, and timestamps to notify you of potential matches while keeping communications private.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Recover Your Belonging</h3>
+            <p>Verify proof of ownership through unique physical characteristics, coordinate a secure on-campus handover, and mark the listing as returned.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </main>
+    <!-- Why Choose FindIT? Section -->
+    <section class="block" id="why-choose" style="background-color:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> Platform Advantages</span>
+            <h2>Why Choose FindIT?</h2>
+            <p>Engineered specifically for university colleges, departments, and campus life.</p>
+          </div>
+        </div>
 
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:24px;">
+          <div class="panel" style="padding:24px;">
+            <div style="width:42px;height:42px;border-radius:var(--radius-sm);background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;margin-bottom:14px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:6px;">Campus-Focused Platform</h3>
+            <p style="font-size:0.9rem;margin:0;">Built around specific campus landmarks—lecture halls, libraries, canteens, and sports complexes.</p>
+          </div>
 
-    <!-- Footer -->
-    <footer>
-        © 2026 FindIT · Lost & Found Management System
-    </footer>
+          <div class="panel" style="padding:24px;">
+            <div style="width:42px;height:42px;border-radius:var(--radius-sm);background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;margin-bottom:14px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:6px;">Easy Item Reporting</h3>
+            <p style="font-size:0.9rem;margin:0;">Simple guided forms with category tagging, photo upload, and instant campus timestamping.</p>
+          </div>
 
+          <div class="panel" style="padding:24px;">
+            <div style="width:42px;height:42px;border-radius:var(--radius-sm);background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;margin-bottom:14px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:6px;">Organized Lost &amp; Found</h3>
+            <p style="font-size:0.9rem;margin:0;">Replaces scattered WhatsApp messages and physical notice boards with an indexed, searchable portal.</p>
+          </div>
+
+          <div class="panel" style="padding:24px;">
+            <div style="width:42px;height:42px;border-radius:var(--radius-sm);background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;margin-bottom:14px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:6px;">Simple Recovery Process</h3>
+            <p style="font-size:0.9rem;margin:0;">Clear workflows for claiming, verifying ownership marks, and recording item handover.</p>
+          </div>
+
+          <div class="panel" style="padding:24px;">
+            <div style="width:42px;height:42px;border-radius:var(--radius-sm);background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;margin-bottom:14px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:6px;">Student Community Support</h3>
+            <p style="font-size:0.9rem;margin:0;">Fosters a culture of mutual responsibility and honest returns across student cohorts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy and Security Section -->
+    <section class="block" id="privacy-security">
+      <div class="container">
+        <div class="panel" style="border: 2px solid var(--border); padding: 36px 32px; background: linear-gradient(to right, #ffffff, var(--surface-alt));">
+          <div style="max-width: 780px;">
+            <span class="eyebrow"><span class="dot"></span> University Privacy Standards</span>
+            <h2 style="font-size: 1.7rem; margin-bottom: 12px;">Private Listings by Design: Why FindIT Requires Sign-In</h2>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 18px;">
+              In accordance with university privacy guidelines, actual student-reported belongings—including item photos, personal descriptions, campus locations, and finder contact channels—are strictly hidden from the public internet.
+            </p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+              <div style="display:flex;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
+                <div style="font-size:0.88rem;color:var(--text-muted);"><strong style="color:var(--text-main);display:block;">Prevents Impersonation:</strong> Only authenticated university accounts can claim lost property.</div>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
+                <div style="font-size:0.88rem;color:var(--text-muted);"><strong style="color:var(--text-main);display:block;">Protects Sensitive Data:</strong> Personal mobile numbers and student IDs remain sheltered.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a class="btn btn-primary" href="login.html">Sign In to Access Listings &rarr;</a>
+              <a class="btn btn-outline" href="register.html">Create a Student Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="block" id="faq" style="background-color:var(--surface);border-top:1px solid var(--border);">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> Clear Answers</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about navigating the campus lost &amp; found system.</p>
+          </div>
+        </div>
+
+        <div style="max-width:820px;margin-inline:auto;">
+          <details style="border-bottom:1px solid var(--border);padding:16px 0;" open>
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">What is FindIT?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              FindIT is a centralized campus web platform designed for students, faculty, and administrative staff to report lost personal items, list found belongings, and coordinate prompt on-campus returns.
+            </p>
+          </details>
+
+          <details style="border-bottom:1px solid var(--border);padding:16px 0;">
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">Who can use FindIT?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              Any registered student, faculty member, or staff member with valid college credentials at KIET Deemed To Be University can create an account and participate in the system.
+            </p>
+          </details>
+
+          <details style="border-bottom:1px solid var(--border);padding:16px 0;">
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">How do I report a lost item?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              Sign in with your campus account and navigate to <strong>Report Lost</strong>. Fill out the item name, category, campus location, date, and description. You can optionally upload a reference photograph to assist finders.
+            </p>
+          </details>
+
+          <details style="border-bottom:1px solid var(--border);padding:16px 0;">
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">How do I report a found item?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              Sign in and click <strong>Report Found</strong>. Provide details about the item and indicate where you have deposited it (e.g. Campus Security Cabin at Gate 1 or Central Library Reception Desk).
+            </p>
+          </details>
+
+          <details style="border-bottom:1px solid var(--border);padding:16px 0;">
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">How can I claim an item?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              Open the item details page while signed in and click <strong>Claim Item</strong>. You will be prompted to submit proof of ownership (such as lock screen wallpaper, specific card names, or unique physical scratches) that only the real owner knows.
+            </p>
+          </details>
+
+          <details style="padding:16px 0;">
+            <summary style="font-weight:700;font-size:1.02rem;cursor:pointer;color:var(--text-main);">Do I need an account to access item listings?</summary>
+            <p style="margin:10px 0 0;font-size:0.94rem;color:var(--text-muted);line-height:1.6;">
+              <strong>Yes.</strong> To protect student privacy, prevent false claims, and keep contact details confidential, all item listings are restricted to authenticated campus members. Visitors must sign in or register to browse listings.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
 </body>
-
 </html>

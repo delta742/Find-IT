@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report a Found Item – FindIT</title>
+  <meta name="description" content="Report an item found on campus to help reconnect it with its rightful owner.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="found">
+  <div id="site-header"></div>
+
+  <main class="container">
+    <div class="page-head">
+      <span class="eyebrow">
+        <span class="dot"></span> Found Report
+      </span>
+      <h1>Report a Found Item</h1>
+      <p>Register an unattended belonging discovered on campus. State where it was found and where the owner can collect it.</p>
+    </div>
+
+    <div class="layout-2">
+      <div class="panel">
+        <form id="reportForm" data-type="found" novalidate>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="name">Item Name <span class="req">*</span></label>
+              <input id="name" name="name" maxlength="80" placeholder="e.g. Spiral Notebook with Pen, Set of 3 Keys" required>
+              <span class="error"></span>
+            </div>
+
+            <div class="field">
+              <label for="category">Category <span class="req">*</span></label>
+              <select id="category" name="category" required></select>
+              <span class="error"></span>
+            </div>
+
+            <div class="field">
+              <label for="date">Date Found <span class="req">*</span></label>
+              <input id="date" name="date" type="date" required>
+              <span class="error"></span>
+            </div>
+
+            <div class="field full">
+              <label for="location">Location Where Found <span class="req">*</span></label>
+              <input id="location" name="location" maxlength="80" placeholder="e.g. Block A 1st Floor Corridor, Near Water Cooler" required>
+              <span class="hint">Specify the exact campus spot where the item was discovered.</span>
+              <span class="error"></span>
+            </div>
+
+            <div class="field full">
+              <label for="description">Item Description &amp; Safekeeping Location <span class="req">*</span></label>
+              <textarea id="description" name="description" maxlength="500" placeholder="Describe general appearance and state where the item is currently held (e.g. Handed to Library Reception, Security Cabin Gate 1, or in my custody)..."></textarea>
+              <div style="display:flex;justify-content:space-between;margin-top:4px;">
+                <span class="hint">Minimum 10 characters. Avoid disclosing private card numbers or device passwords.</span>
+                <span class="hint"><span id="count">0</span>/500</span>
+              </div>
+              <span class="error"></span>
+            </div>
+
+            <!-- Image Upload Component -->
+            <div class="field full">
+              <label>Item Photograph (Optional but recommended)</label>
+              <input type="file" id="itemImage" accept="image/*" style="display:none;">
+              <div class="image-upload-zone" id="uploadDropzone" tabindex="0" role="button" aria-label="Upload item image">
+                <div class="upload-icon-svg" aria-hidden="true">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+                  </svg>
+                </div>
+                <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Click or drag an image here to upload</div>
+                <div class="hint">PNG, JPG, or WebP up to 4MB. Visuals allow owners to recognize their belongings immediately.</div>
+              </div>
+
+              <div class="image-preview-container" id="imagePreviewBox" style="display: none;">
+                <img class="preview-img-tag" id="previewImg" src="" alt="Selected item image">
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;" id="fileNameDisplay">item-photo.jpg</div>
+                  <div class="hint" id="fileSizeDisplay">Ready for upload</div>
+                </div>
+                <button type="button" class="btn-remove-img" id="removeImgBtn">Remove image</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="contactName">Your Name (Finder / Staff) <span class="req">*</span></label>
+              <input id="contactName" name="contactName" maxlength="60" autocomplete="name" placeholder="Finder's name or department desk" required>
+              <span class="error"></span>
+            </div>
+
+            <div class="field">
+              <label for="contact">Contact Email or Phone <span class="req">*</span></label>
+              <input id="contact" name="contact" maxlength="60" placeholder="e.g. security@kiet.edu or 9876500011" required>
+              <span class="hint">So the verified owner can arrange safe handover.</span>
+              <span class="error"></span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Submit Found Report</button>
+            <button class="btn btn-outline" type="reset">Clear Form</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="tips">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          Guidelines for Finders
+        </h3>
+        <ul>
+          <li><strong>High-Value Items:</strong> For laptops, phones, wallets, or government IDs, surrender them to the nearest Campus Security Desk or Faculty Office.</li>
+          <li><strong>Protect Confidential Details:</strong> Do not publicly publish full card numbers or sensitive student documents; let the claiming student describe these to confirm ownership.</li>
+          <li><strong>Check Lost Reports:</strong> A student might have already filed a matching report. Check <a href="search.html?type=lost" style="color:var(--primary);font-weight:600;">Lost Reports</a>.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Reports – FindIT</title>
+  <meta name="description" content="Manage, update, and resolve your campus lost and found listings.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="my-reports">
+  <div id="site-header"></div>
+
+  <main class="container" style="padding-top: 24px; padding-bottom: 64px;">
+    <div class="page-head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Listing Management</span>
+        <h1>My Reported Items</h1>
+        <p>Review the status of your reported items, resolve claims, and manage handovers.</p>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <a class="btn btn-primary btn-sm" href="report-lost.html">Report Lost</a>
+        <a class="btn btn-outline btn-sm" href="report-found.html">Report Found</a>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="tabs" role="tablist" style="margin-bottom: 24px;" id="reportTypeTabs">
+      <button type="button" class="on" data-tab="all">All My Reports</button>
+      <button type="button" data-tab="lost">Lost Reports</button>
+      <button type="button" data-tab="found">Found Reports</button>
+      <button type="button" data-tab="returned">Returned / Resolved</button>
+    </div>
+
+    <!-- Listings Grid -->
+    <div id="reportsGrid" class="grid">
+      <!-- Injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Edit Listing Modal Dialog (Restricted to Listing Creator) -->
+  <dialog id="editDialog" aria-labelledby="editTitle">
+    <form id="editForm" method="dialog" novalidate>
+      <div class="dialog-head">
+        <h3 id="editTitle">Edit Listing Details</h3>
+        <button class="btn btn-outline btn-sm" type="button" id="editCancel" aria-label="Close dialog">&times;</button>
+      </div>
+      <p class="hint" style="margin-top:0;margin-bottom:16px;">
+        Update your listing details. Note that listing ownership and creation timestamp are immutable.
+      </p>
+      <input type="hidden" id="editItemId">
+      <div class="field" style="margin-bottom:14px;">
+        <label for="editName">Item Name <span class="req">*</span></label>
+        <input id="editName" maxlength="80" required>
+        <span class="error"></span>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label for="editCategory">Category <span class="req">*</span></label>
+        <select id="editCategory" required></select>
+        <span class="error"></span>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label for="editLocation">Campus Location <span class="req">*</span></label>
+        <input id="editLocation" maxlength="120" required>
+        <span class="error"></span>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label for="editDescription">Description <span class="req">*</span></label>
+        <textarea id="editDescription" maxlength="500" style="min-height:95px" required></textarea>
+        <span class="error"></span>
+      </div>
+      <div class="dialog-actions">
+        <button class="btn btn-outline btn-sm" type="button" id="editCancelBtn">Cancel</button>
+        <button class="btn btn-primary btn-sm" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="site-footer"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/my-reports.js"></script>
+</body>
+</html>

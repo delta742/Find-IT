@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FindIT Ownership Authorization Verification Suite</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 24px; background: #f8faf9; }
+    .test-box { max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .test-row { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+    .pass { color: #166534; font-weight: 600; background: #ecfdf5; padding: 4px 8px; border-radius: 4px; }
+    .fail { color: #991b1b; font-weight: 600; background: #fef2f2; padding: 4px 8px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="test-box">
+    <h2>FindIT Authorization &amp; Ownership Verification Test Suite</h2>
+    <p>Executing scenarios in headless Chromium engine...</p>
+    <div id="results">Running tests...</div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      const resultsEl = document.getElementById("results");
+      const logs = [];
+
+      function assert(condition, message) {
+        logs.push({
+          pass: !!condition,
+          message: message
+        });
+      }
+
+      try {
+        const Auth = window.FindITAuth;
+        const F = window.FindIT;
+
+        // Reset demo state for fresh test run
+        localStorage.clear();
+        sessionStorage.clear();
+        F.resetDemoData();
+
+        // Initialize users and seed items
+        const users = Auth.getUsers();
+        assert(users.length >= 2, "Default users initialized (Aarav & Riya present)");
+
+        const aaravUser = users.find(u => u.email === "student@kiet.edu");
+        const riyaUser = users.find(u => u.email === "riya.sharma@kiet.edu");
+        assert(aaravUser && aaravUser.id === "usr_kiet_aarav", "Student A (Aarav) ID verified: usr_kiet_aarav");
+        assert(riyaUser && riyaUser.id === "usr_kiet_riya", "Student B (Riya) ID verified: usr_kiet_riya");
+
+        // Seed items verification
+        const initialItems = F.loadItems();
+        assert(initialItems.length > 0, "Seed item catalog loaded (" + initialItems.length + " items)");
+        const seedItem = initialItems[0];
+        assert(!seedItem.createdBy, "Seed items have no createdBy ownership");
+
+        // Backward compatibility: Neither student should be permitted to delete seed items
+        Auth.login("student@kiet.edu", "Password123");
+        const deleteSeedRes = F.deleteItem(seedItem.id, aaravUser);
+        assert(!deleteSeedRes.success && deleteSeedRes.error.includes("Permission denied"), 
+          "Scenario Backward Compatibility: Student cannot delete old/seed listing with no creator (" + deleteSeedRes.error + ")");
+        assert(F.getItem(seedItem.id) !== undefined, "Seed listing remains intact in storage");
+
+        // ==========================================
+        // SCENARIO 1: Student A logs in, creates a Lost item.
+        // Verify Student A is verified creator and sees Delete/Edit authorization.
+        // ==========================================
+        Auth.login("student@kiet.edu", "Password123");
+        const currentStudentA = Auth.getCurrentUser();
+        assert(currentStudentA.id === aaravUser.id, "Scenario 1: Student A logged in as " + currentStudentA.fullName);
+
+        const itemA = F.addItem({
+          id: F.uid(),
+          type: "lost",
+          name: "Aarav's Lost Hydro Flask",
+          category: "Other",
+          location: "Library 2nd Floor",
+          date: F.today(),
+          description: "Blue hydro flask with campus sticker",
+          contactName: currentStudentA.fullName,
+          contact: currentStudentA.email,
+          createdBy: currentStudentA.id,
+          userId: currentStudentA.id,
+          status: "open",
+          createdAt: Date.now(),
+          claims: []
+        });
+
+        assert(itemA.createdBy === "usr_kiet_aarav", "Scenario 1: Lost item successfully created with createdBy = 'usr_kiet_aarav'");
+        assert(F.isItemOwner(itemA, currentStudentA) === true, "Scenario 1: isItemOwner(itemA, Student A) evaluates to TRUE");
+
+        // ==========================================
+        // SCENARIO 2: Student B logs in, opens Student A's Lost item.
+        // Verify Student B DOES NOT have delete or edit permissions on Student A's item.
+        // ==========================================
+        Auth.logout();
+        Auth.login("riya.sharma@kiet.edu", "Password123");
+        const currentStudentB = Auth.getCurrentUser();
+        assert(currentStudentB.id === riyaUser.id, "Scenario 2: Student B logged in as " + currentStudentB.fullName);
+
+        const itemAFetchedByB = F.getItem(itemA.id);
+        assert(F.isItemOwner(itemAFetchedByB, currentStudentB) === false, "Scenario 2: isItemOwner(itemA, Student B) evaluates to FALSE (Delete/Edit hidden)");
+
+        // ==========================================
+        // SCENARIO 3: Student B creates a Found item.
+        // Verify Student B is owner and has Delete/Edit permission on their item.
+        // ==========================================
+        const itemB = F.addItem({
+          id: F.uid(),
+          type: "found",
+          name: "Riya's Found Casio Watch",
+          category: "Electronics",
+          location: "Cafeteria Table 4",
+          date: F.today(),
+          description: "Silver digital Casio watch left on table",
+          contactName: currentStudentB.fullName,
+          contact: currentStudentB.email,
+          createdBy: currentStudentB.id,
+          userId: currentStudentB.id,
+          status: "open",
+          createdAt: Date.now(),
+          claims: []
+        });
+
+        assert(itemB.createdBy === "usr_kiet_riya", "Scenario 3: Found item successfully created with createdBy = 'usr_kiet_riya'");
+        assert(F.isItemOwner(itemB, currentStudentB) === true, "Scenario 3: isItemOwner(itemB, Student B) evaluates to TRUE (Delete/Edit visible)");
+
+        // ==========================================
+        // SCENARIO 4: Student A opens Student B's Found item.
+        // Verify Student A DOES NOT have ownership or Delete permission on Student B's item.
+        // ==========================================
+        Auth.logout();
+        Auth.login("student@kiet.edu", "Password123");
+        const studentALoggedInAgain = Auth.getCurrentUser();
+        const itemBFetchedByA = F.getItem(itemB.id);
+        assert(F.isItemOwner(itemBFetchedByA, studentALoggedInAgain) === false, "Scenario 4: isItemOwner(itemB, Student A) evaluates to FALSE (Delete/Edit hidden)");
+
+        // ==========================================
+        // SCENARIO 5: Student A tries to execute deleteItem() on Student B's item.
+        // Verify deletion is rejected and data is NOT deleted from LocalStorage.
+        // ==========================================
+        const unauthorizedDeleteRes = F.deleteItem(itemB.id, studentALoggedInAgain);
+        assert(!unauthorizedDeleteRes.success, "Scenario 5: Unauthorized deletion rejected by backend storage layer");
+        assert(unauthorizedDeleteRes.error && unauthorizedDeleteRes.error.includes("Permission denied"), "Scenario 5: Proper permission denied error returned: " + unauthorizedDeleteRes.error);
+        const itemBStillExists = F.getItem(itemB.id);
+        assert(itemBStillExists !== undefined && itemBStillExists.name === "Riya's Found Casio Watch", "Scenario 5: Student B's item is intact and was NOT deleted from LocalStorage");
+
+        // Unauthorized edit attempt
+        const unauthorizedEditRes = F.updateItem(itemB.id, { name: "Hacked by Aarav" }, studentALoggedInAgain);
+        assert(!unauthorizedEditRes.success, "Scenario 5: Unauthorized update rejected by backend storage layer");
+        assert(F.getItem(itemB.id).name === "Riya's Found Casio Watch", "Scenario 5: Item attributes remain unmutated");
+
+        // ==========================================
+        // SCENARIO 6: Student B can still submit a Claim / Contact message on Student A's item.
+        // Verify claim feature is preserved and records claim without ownership restrictions.
+        // ==========================================
+        Auth.logout();
+        Auth.login("riya.sharma@kiet.edu", "Password123");
+        const studentBClaimer = Auth.getCurrentUser();
+
+        const claimRes = F.addClaim(itemA.id, {
+          name: studentBClaimer.fullName,
+          contact: studentBClaimer.email,
+          message: "I spotted this flask in the 2nd floor library near aisle 4."
+        }, studentBClaimer);
+
+        assert(claimRes.success === true, "Scenario 6: Student B successfully submitted a claim message on Student A's item");
+        const itemAWithClaim = F.getItem(itemA.id);
+        assert(itemAWithClaim.claims && itemAWithClaim.claims.length === 1, "Scenario 6: Claim message count is 1");
+        assert(itemAWithClaim.claims[0].message.includes("spotted this flask"), "Scenario 6: Claim message content verified");
+
+        // ==========================================
+        // SCENARIO 7: Immutability test on edit
+        // Verify creator can edit description, but createdBy cannot be overwritten
+        // ==========================================
+        const riyaEditOwnRes = F.updateItem(itemB.id, {
+          description: "Updated description: Silver digital watch with mesh band",
+          createdBy: "usr_attacker_hijack"
+        }, studentBClaimer);
+        assert(riyaEditOwnRes.success === true, "Scenario 7: Creator (Riya) can successfully edit her own listing");
+        const riyaItemAfterEdit = F.getItem(itemB.id);
+        assert(riyaItemAfterEdit.description.includes("mesh band"), "Scenario 7: Description was updated");
+        assert(riyaItemAfterEdit.createdBy === "usr_kiet_riya", "Scenario 7: createdBy remains strictly immutable ('usr_kiet_riya')");
+
+        // ==========================================
+        // SCENARIO 8: Authorized deletion
+        // Verify creator CAN delete their own listing
+        // ==========================================
+        const riyaDeleteOwnRes = F.deleteItem(itemB.id, studentBClaimer);
+        assert(riyaDeleteOwnRes.success === true, "Scenario 8: Creator (Riya) can successfully delete her own listing");
+        assert(F.getItem(itemB.id) === undefined, "Scenario 8: Listing is removed from LocalStorage after authorized deletion");
+
+      } catch (err) {
+        assert(false, "Unexpected runtime exception: " + err.message);
+      }
+
+      // Render results table
+      const total = logs.length;
+      const passed = logs.filter(l => l.pass).length;
+      const failed = total - passed;
+
+      let html = `<div style="margin-bottom:16px;"><strong>Summary:</strong> ${passed} / ${total} tests passed (${failed} failed)</div>`;
+      html += logs.map(l => `
+        <div class="test-row">
+          <span>${l.message}</span>
+          <span class="${l.pass ? 'pass' : 'fail'}">${l.pass ? 'PASS' : 'FAIL'}</span>
+        </div>
+      `).join("");
+
+      resultsEl.innerHTML = html;
+      document.body.setAttribute("data-test-status", failed === 0 ? "ALL_PASSED" : "FAILED");
+    });
+  </script>
+</body>
+</html>

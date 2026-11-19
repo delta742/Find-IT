@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create an Account – FindIT</title>
+  <meta name="description" content="Register your campus profile to report lost belongings and claim found items on FindIT.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="register">
+  <div id="site-header"></div>
+
+  <main class="container">
+    <div class="auth-container">
+      <div class="auth-card auth-register">
+        <div class="auth-header">
+          <div class="auth-brand-logo" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <h1>Join FindIT</h1>
+          <p>Create your university student or faculty account</p>
+        </div>
+
+        <!-- Alert Notification -->
+        <div id="registerAlert" class="auth-alert" style="display: none;" role="alert">
+          <span class="auth-alert-icon" id="regAlertIcon"></span>
+          <span id="regAlertMsg"></span>
+        </div>
+
+        <form id="registerForm" novalidate>
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="field">
+              <label for="regFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="regFullName" name="fullName" placeholder="e.g. Aarav Mehta" maxlength="60" autocomplete="name" required>
+              <span class="error" id="fullNameError"></span>
+            </div>
+
+            <!-- Email Address -->
+            <div class="field">
+              <label for="regEmail">Campus Email Address <span class="req">*</span></label>
+              <input type="email" id="regEmail" name="email" placeholder="e.g. aarav.mehta@kiet.edu" autocomplete="email" required>
+              <span class="error" id="emailError"></span>
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="field">
+              <label for="regPhone">Mobile Number <span class="req">*</span></label>
+              <input type="tel" id="regPhone" name="phone" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" required>
+              <span class="error" id="phoneError"></span>
+            </div>
+
+            <!-- College / University Name -->
+            <div class="field">
+              <label for="regCollege">College / Institution Name <span class="req">*</span></label>
+              <input type="text" id="regCollege" name="college" placeholder="e.g. KIET Deemed To Be University" maxlength="80" required>
+              <span class="error" id="collegeError"></span>
+            </div>
+
+            <!-- Student ID / Enrollment Number -->
+            <div class="field full">
+              <label for="regStudentId">Student ID / Enrollment Number <span class="req">*</span></label>
+              <input type="text" id="regStudentId" name="studentId" placeholder="e.g. 2100290140001 or MCA-2024-42" maxlength="40" required>
+              <span class="error" id="studentIdError"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="field">
+              <label for="regPassword">Password <span class="req">*</span></label>
+              <div class="password-wrap">
+                <input type="password" id="regPassword" name="password" placeholder="Minimum 6 characters" autocomplete="new-password" required>
+                <button type="button" class="toggle-pwd-btn" id="toggleRegPwd" aria-label="Show password" title="Toggle password visibility">
+                  <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+              <!-- Dynamic password strength meter -->
+              <div class="pwd-strength-container" id="pwdStrengthBox" style="display: none;">
+                <div class="pwd-strength-bar"><div class="pwd-strength-fill" id="pwdStrengthFill"></div></div>
+                <div class="pwd-strength-label" id="pwdStrengthLabel">Password strength</div>
+              </div>
+              <span class="error" id="passwordError"></span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="field">
+              <label for="regConfirmPassword">Confirm Password <span class="req">*</span></label>
+              <div class="password-wrap">
+                <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password" required>
+                <button type="button" class="toggle-pwd-btn" id="toggleRegConfirmPwd" aria-label="Show password" title="Toggle password visibility">
+                  <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+              <span class="error" id="confirmPasswordError"></span>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-primary btn-auth-submit" id="submitRegisterBtn">Create Account</button>
+          </div>
+
+          <div class="auth-footer">
+            Already have an account? <a href="login.html" id="loginRedirectLink">Sign In</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

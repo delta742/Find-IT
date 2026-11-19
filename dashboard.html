@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard – FindIT</title>
+  <meta name="description" content="Personalized student dashboard to browse campus lost and found items, manage your listings, and track claim activity.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+  <div id="site-header"></div>
+
+  <main class="container" style="padding-top: 24px; padding-bottom: 64px;">
+    <!-- Welcome Header Card -->
+    <div class="panel" style="background: linear-gradient(to right, #ffffff, var(--surface-alt)); border: 1px solid var(--border); margin-bottom: 24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span class="badge found"><span class="badge-dot"></span> Authenticated Session</span>
+            <span style="font-size:0.84rem;color:var(--text-muted);" id="userCollegeDisplay">KIET Deemed To Be University</span>
+          </div>
+          <h1 style="font-size:1.85rem;margin:0 0 4px 0;">Welcome back, <span id="userNameDisplay">Student</span>!</h1>
+          <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">
+            Student ID: <strong id="userStudentIdDisplay" style="color:var(--text-main);">--</strong> · Email: <strong id="userEmailDisplay" style="color:var(--text-main);">--</strong>
+          </p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a class="btn btn-outline btn-sm" href="report-lost.html">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            Report Lost
+          </a>
+          <a class="btn btn-outline btn-sm" href="report-found.html">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            Report Found
+          </a>
+          <a class="btn btn-primary btn-sm" href="search.html">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Browse All Items
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Metric Overview Cards -->
+    <div class="stats" style="margin-bottom: 32px;" id="dashboardMetrics">
+      <div class="stat-card">
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <div class="stat-info">
+          <b id="mActiveListings">0</b>
+          <span>Campus Active Listings</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" aria-hidden="true" style="background-color: var(--lost-bg); color: var(--lost-color);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        </div>
+        <div class="stat-info">
+          <b id="mMyReports">0</b>
+          <span>My Reported Items</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div class="stat-info">
+          <b id="mRecovered">0</b>
+          <span>Successfully Returned</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="stat-info">
+          <b id="mUserMatches">0</b>
+          <span>Smart Match Alerts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: My Reported Items -->
+    <section style="margin-bottom: 40px;">
+      <div class="section-head">
+        <div>
+          <h2>My Reported Items</h2>
+          <p>Listings you have created. You can edit, resolve, or mark items as returned here.</p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="my-reports.html">Manage Full List &rarr;</a>
+      </div>
+
+      <div id="myItemsGrid" class="grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Section 2: Recent Verified Campus Listings (Unlocked for Authenticated Students) -->
+    <section style="margin-bottom: 40px;">
+      <div class="section-head">
+        <div>
+          <h2>Recent Campus Listings</h2>
+          <p>Latest verified lost and found items reported across campus facilities.</p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="search.html">Search &amp; Filter All &rarr;</a>
+      </div>
+
+      <div id="recentCampusGrid" class="grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Section 3: Official Campus Handover & Custody Centers -->
+    <section class="panel">
+      <h3 style="font-size: 1.2rem; margin-bottom: 8px;">Official Campus Drop-off &amp; Custody Locations</h3>
+      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 18px;">
+        For valuable belongings (electronics, official identification cards, wallets), surrender items to authorized personnel:
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;">
+        <div style="background-color:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;">
+          <strong style="color:var(--text-main);display:block;margin-bottom:2px;">Central Campus Security Cabin</strong>
+          <span style="font-size:0.84rem;color:var(--text-muted);">Main Gate 1 · 24/7 Security Desk · In-charge: Sub-inspector</span>
+        </div>
+        <div style="background-color:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;">
+          <strong style="color:var(--text-main);display:block;margin-bottom:2px;">Central Library Circulation Desk</strong>
+          <span style="font-size:0.84rem;color:var(--text-muted);">2nd Floor Reception · 9:00 AM – 8:00 PM · Books &amp; Study Accessories</span>
+        </div>
+        <div style="background-color:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;">
+          <strong style="color:var(--text-main);display:block;margin-bottom:2px;">Department Faculty Office (Block A)</strong>
+          <span style="font-size:0.84rem;color:var(--text-muted);">Room 201 · 9:30 AM – 5:00 PM · Department Academic Staff</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

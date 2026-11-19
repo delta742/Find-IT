@@ -1,119 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>About - FindIT</title>
-
-    <link rel="stylesheet" href="about.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About &amp; Contact – FindIT</title>
+  <meta name="description" content="Learn about FindIT, our mission to reunite campus belongings, frequently asked questions, and support channels.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+<body data-page="about">
+  <div id="site-header"></div>
 
-<body>
+  <main class="container">
+    <div class="page-head">
+      <span class="eyebrow"><span class="dot"></span> University Platform</span>
+      <h1>About FindIT</h1>
+      <p>A centralized lost and found digital management system engineered for university campuses, replacing scattered notice boards and chat groups.</p>
+    </div>
 
-    <!-- Navigation Bar -->
+    <div class="layout-2" style="margin-top: 24px;">
+      <div>
+        <div class="panel">
+          <h2 style="font-size:1.4rem;margin-bottom:12px;">The FindIT Mission</h2>
+          <p>
+            On a bustling university campus, students and staff frequently misplace critical belongings—student IDs, laptops, keys, textbooks, and earphones. Traditionally, notices are scattered across physical boards or buried in ephemeral WhatsApp chat threads where information is lost within hours.
+          </p>
+          <p>
+            <strong>FindIT</strong> provides a single, structured, and searchable repository. With real-time status tracking, smart category/keyword comparison, and privacy-protected claim workflows, FindIT reduces lost item recovery time from days to minutes.
+          </p>
 
-    <nav class="navbar">
-
-        <div class="logo">
-            🔎 <span>FindIT</span>
+          <h3 style="font-size:1.15rem;margin:24px 0 12px 0;">Key System Capabilities</h3>
+          <ul style="padding-left:20px;color:var(--text-muted);font-size:0.92rem;line-height:1.6;margin:0;">
+            <li><strong>Automated Matchmaking:</strong> Proactively pairs lost reports with found reports using category, timestamp proximity, and location heuristics.</li>
+            <li><strong>Secure Claim Protocol:</strong> Enables rightful owners to describe private identifying marks before handover.</li>
+            <li><strong>Account Verification:</strong> Restricts reporting and claims to registered campus members to maintain community trust.</li>
+            <li><strong>Zero Setup Requirement:</strong> Client-side browser storage architecture allows immediate deployment and demonstration without complex database dependencies.</li>
+          </ul>
         </div>
 
-        <div class="nav-links">
-
-            <a href="index.html">Dashboard</a>
-
-            <a href="all-items.html">All Items</a>
-
-            <a href="lost-items.html">Report Lost</a>
-
-            <a href="found-items.html">Report Found</a>
-
-            <a href="about.html" class="active">About</a>
-
+        <div class="panel" id="faq" style="margin-top: 24px;">
+          <h2 style="font-size:1.4rem;margin-bottom:14px;">Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <details style="border-bottom:1px solid var(--border);padding:14px 0;">
+              <summary style="font-weight:600;cursor:pointer;color:var(--text-main);">Where is my reported data stored?</summary>
+              <p style="margin:8px 0 0;color:var(--text-muted);font-size:0.92rem;line-height:1.55;">
+                In this frontend demonstration, listings, user accounts, and messages are persisted in your browser's LocalStorage and SessionStorage. Other devices will not see your local changes unless connected to an integrated backend.
+              </p>
+            </details>
+            <details style="border-bottom:1px solid var(--border);padding:14px 0;">
+              <summary style="font-weight:600;cursor:pointer;color:var(--text-main);">How does the automated matching algorithm work?</summary>
+              <p style="margin:8px 0 0;color:var(--text-muted);font-size:0.92rem;line-height:1.55;">
+                When an item is viewed, FindIT computes a match score (0–100%) against opposing open reports by scoring shared keyword tokens in names and descriptions (+30%), identical campus locations (+15%), and timestamp proximity (+15%).
+              </p>
+            </details>
+            <details style="border-bottom:1px solid var(--border);padding:14px 0;">
+              <summary style="font-weight:600;cursor:pointer;color:var(--text-main);">What should I do if I find a high-value item?</summary>
+              <p style="margin:8px 0 0;color:var(--text-muted);font-size:0.92rem;line-height:1.55;">
+                For laptops, smartphones, debit cards, and official ID cards, hand them over to Central Campus Security or the MCA Department office, and specify that location in your report description.
+              </p>
+            </details>
+            <details style="padding:14px 0;">
+              <summary style="font-weight:600;cursor:pointer;color:var(--text-main);">How do I reset or restore the default demo data?</summary>
+              <p style="margin:8px 0 0;color:var(--text-muted);font-size:0.92rem;line-height:1.55;">
+                You can restore the initial demo listings and messages anytime by clicking:
+                <br>
+                <a href="#" id="resetLink" style="display:inline-block;margin-top:6px;color:var(--primary);font-weight:700;">Reset Demo Data</a>
+              </p>
+            </details>
+          </div>
         </div>
+      </div>
 
-        <a href="#" class="login-btn">Login</a>
+      <!-- Contact Form -->
+      <aside class="panel" id="contact">
+        <h2 style="font-size:1.35rem;margin-bottom:6px;">Contact Help Desk</h2>
+        <p style="margin:0 0 18px;font-size:0.9rem;">Questions, suggestions, or need assistance? Send a message to the campus team.</p>
+        <form id="contactForm" novalidate>
+          <div class="field" style="margin-bottom:14px;">
+            <label for="mName">Full Name <span class="req">*</span></label>
+            <input id="mName" maxlength="60" placeholder="e.g. Aarav Mehta" required>
+            <span class="error"></span>
+          </div>
+          <div class="field" style="margin-bottom:14px;">
+            <label for="mEmail">Campus Email <span class="req">*</span></label>
+            <input id="mEmail" type="email" maxlength="80" placeholder="student@kiet.edu" required>
+            <span class="error"></span>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="mMsg">Message <span class="req">*</span></label>
+            <textarea id="mMsg" maxlength="500" placeholder="Describe your question or feedback..." style="min-height:110px;" required></textarea>
+            <span class="error"></span>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%;">Send Message</button>
+        </form>
 
-    </nav>
-
-
-    <!-- About Section -->
-
-    <section class="about-section">
-
-        <p class="about-small-title">
-            COLLEGE LOST & FOUND
-        </p>
-
-        <h1>About FindIT</h1>
-
-        <p class="about-intro">
-            FindIT is a simple Lost and Found Management System
-            designed for college students.
-        </p>
-
-
-        <!-- About Cards -->
-
-        <div class="about-container">
-
-            <div class="about-card">
-
-                <h2>🎯 Our Purpose</h2>
-
-                <p>
-                    FindIT helps students report lost items and
-                    share information about items they have found
-                    on campus.
-                </p>
-
-            </div>
-
-
-            <div class="about-card">
-
-                <h2>🔎 What We Do</h2>
-
-                <p>
-                    Students can view lost and found items,
-                    report an item, and check the available
-                    information about belongings.
-                </p>
-
-            </div>
-
-
-            <div class="about-card">
-
-                <h2>🤝 Our Goal</h2>
-
-                <p>
-                    Our goal is to make the process of finding
-                    and returning lost belongings easier for
-                    the college community.
-                </p>
-
-            </div>
-
+        <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--border);font-size:0.86rem;color:var(--text-muted);line-height:1.5;">
+          <strong>Department Contact:</strong><br>
+          MCA Department · KIET Deemed To Be University<br>
+          Delhi-NCR, Ghaziabad, Uttar Pradesh 201206<br>
+          Email: <a href="mailto:support.findit@kiet.edu" style="color:var(--primary);font-weight:600;">support.findit@kiet.edu</a>
         </div>
+      </aside>
+    </div>
+  </main>
 
+  <div id="site-footer"></div>
 
-        <!-- Simple Footer Text -->
-
-        <div class="about-bottom">
-
-            <h2>FindIT</h2>
-
-            <p>
-                Helping students find what they lost.
-            </p>
-
-        </div>
-
-    </section>
-
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/about.js"></script>
 </body>
-
 </html>
